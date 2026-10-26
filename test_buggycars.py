@@ -40,10 +40,19 @@ def test_login_and_register_controls_visible(page):
 
 # ---------- Registration ----------
 
-def test_register_link_opens_registration_page(page):
+def test_register_link_opens_registration_page_regex(page):
     page.goto("/")
     page.get_by_role("link", name="Register").click()
+    # Variant 1: regular expression. Matches any address that ends with /register,
+    # so the test does not depend on the domain. "$" means "end of the string".
     expect(page).to_have_url(re.compile(r"/register$"))
+
+def test_register_link_opens_registration_page_exact_url(page):
+    page.goto("/")
+    page.get_by_role("link", name="Register").click()
+    # Variant 2: exact address. Stricter and easier to read,
+    # but it must be changed if the site moves to another domain.
+    expect(page).to_have_url("https://buggy.justtestit.org/register")
 
 
 def test_register_cancel_returns_to_home(page):
