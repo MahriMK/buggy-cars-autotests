@@ -17,13 +17,6 @@ pip install -r requirements.txt
 playwright install
 ```
 
-Tests that need login read the account from environment variables:
-```bash
-export BUGGY_USER=your_username
-export BUGGY_PASSWORD=your_password
-```
-(On Windows PowerShell: `$env:BUGGY_USER="your_username"`.)
-Without them, tests that need login are skipped.
 
 ## Run
 ```bash

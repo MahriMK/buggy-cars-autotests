@@ -4,14 +4,12 @@ import pytest
 from playwright.sync_api import expect
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture
 def test_data():
-    """Login and password come from environment variables, not from the code."""
-    username = os.getenv("BUGGY_USER")
-    password = os.getenv("BUGGY_PASSWORD")
-    if not username or not password:
-        pytest.skip("Set BUGGY_USER and BUGGY_PASSWORD to run tests that need login")
-    return {"username": username, "password": password}
+     return {
+        'username': 'user1221',
+        'password': 'johNny123!'
+    }
 
 
 def log_in(page, test_data):
