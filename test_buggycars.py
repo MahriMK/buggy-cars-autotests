@@ -114,10 +114,21 @@ def test_logout_shows_login_form_again(logged_in_page):
 
 # ---------- Pagination ----------
 
-def test_pagination_next_button_opens_page_2(page):
+def test_pagination_next_button_opens_page_2_regex(page):
     page.goto("/")
     page.locator('a[href="/overall"]').click()
+    # Variant 1: regular expression, "$" means "end of the string".
     expect(page).to_have_url(re.compile(r"/overall$"))
+    page.get_by_text("»").click()
+    # A pattern is used on purpose: the total number of pages can change.
+    expect(page.get_by_text(re.compile(r"page 2 of \d+"))).to_be_visible()
+
+
+def test_pagination_next_button_opens_page_2_exact_url(page):
+    page.goto("/")
+    page.locator('a[href="/overall"]').click()
+    # Variant 2: exact address. Stricter, but depends on the domain.
+    expect(page).to_have_url("https://buggy.justtestit.org/overall")
     page.get_by_text("»").click()
     expect(page.get_by_text(re.compile(r"page 2 of \d+"))).to_be_visible()
 
