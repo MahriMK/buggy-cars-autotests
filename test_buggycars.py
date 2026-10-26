@@ -132,6 +132,17 @@ def test_pagination_next_button_opens_page_2_exact_url(page):
     page.get_by_text("»").click()
     expect(page.get_by_text(re.compile(r"page 2 of \d+"))).to_be_visible()
 
+def test_pagination_last_page_next_does_not_exceed_total(page):
+    page.goto("/overall")
+    # The site has 5 pages (checked manually): go to the last one
+    for _ in range(4):
+        page.get_by_text("»").click()
+    expect(page.get_by_text("page 5 of 5")).to_be_visible()
+    # Expected: "next" on the last page does not go beyond the last page.
+    # BUG: the site shows "page 6 of 5", so this test fails until it is fixed.
+    page.get_by_text("»").click()
+    expect(page.get_by_text("page 6 of 5")).not_to_be_visible()
+
 
 # ---------- Saved authorization state ----------
 
