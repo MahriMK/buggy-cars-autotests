@@ -55,10 +55,19 @@ def test_register_link_opens_registration_page_exact_url(page):
     expect(page).to_have_url("https://buggy.justtestit.org/register")
 
 
-def test_register_cancel_returns_to_home(page):
+def test_register_cancel_returns_to_home_regex(page):
     page.goto("/register")
     page.get_by_role("button", name="Cancel").click()
+    # Variant 1: regular expression. Matches any address that ends with "/",
+    # which is how the home page address looks. "$" means "end of the string".
     expect(page).to_have_url(re.compile(r"/$"))
+
+def test_register_cancel_returns_to_home_exact_url(page):
+    page.goto("/register")
+    page.get_by_role("button", name="Cancel").click()
+    # Variant 2: exact address of the home page. Stricter and easier to read,
+    # but it must be changed if the site moves to another domain.
+    expect(page).to_have_url("https://buggy.justtestit.org/")
 
 
 @pytest.mark.parametrize("firstname, lastname", [
