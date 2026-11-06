@@ -132,6 +132,10 @@ def test_pagination_next_button_opens_page_2_exact_url(page):
     page.get_by_text("»").click()
     expect(page.get_by_text(re.compile(r"page 2 of \d+"))).to_be_visible()
 
+
+# NOTE: this test fails on purpose. It catches a real bug on the site:
+# on the last page the "next" button opens "page 6 of 5".
+# The test will pass when the bug is fixed.
 def test_pagination_last_page_next_does_not_exceed_total(page):
     page.goto("/overall")
     # The site has 5 pages (checked manually): go to the last one
