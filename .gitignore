@@ -5,3 +5,4 @@ __pycache__/
 test-results/
 auth.json
 .env
+.vscode/
