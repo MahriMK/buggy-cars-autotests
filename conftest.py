@@ -6,9 +6,9 @@ from pages.register_page import RegisterPage
 from pages.home_page import HomePage
 
 
-@pytest.fixture
+@pytest.fixture(scope="session")
 def test_data():
-     return {
+    return {
         'username': 'user1221',
         'password': 'johNny123!'
     }
