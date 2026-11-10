@@ -3,6 +3,7 @@ import os
 import pytest
 from playwright.sync_api import expect
 from pages.register_page import RegisterPage
+from pages.home_page import HomePage
 
 
 @pytest.fixture
@@ -44,3 +45,6 @@ def auth_state(browser, base_url, test_data, tmp_path_factory):
 def register_page(page):
     return RegisterPage(page)
 
+@pytest.fixture
+def home_page(page):
+    return HomePage(page)
