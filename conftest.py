@@ -47,3 +47,7 @@ def register_page(page):
 @pytest.fixture
 def home_page(page):
     return HomePage(page)
+
+@pytest.fixture
+def header(page):
+    return Header(page)
