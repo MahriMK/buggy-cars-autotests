@@ -4,6 +4,7 @@ import pytest
 from playwright.sync_api import expect
 from pages.register_page import RegisterPage
 from pages.home_page import HomePage
+from components.header import Header
 
 
 @pytest.fixture(scope="session")
@@ -15,11 +16,9 @@ def test_data():
 
 
 def log_in(page, test_data):
-    """Fill the login form on the home page and submit it."""
+    """Open the home page and log in through the Header component."""
     page.goto("/")
-    page.locator('input[name="login"]').fill(test_data["username"])
-    page.locator('input[name="password"]').fill(test_data["password"])
-    page.get_by_role("button", name="Login").click()
+    Header(page).login(test_data['username'], test_data['password'])
     expect(page.get_by_role("link", name="Logout")).to_be_visible()
 
 
