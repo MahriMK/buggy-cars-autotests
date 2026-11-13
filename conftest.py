@@ -4,7 +4,9 @@ import pytest
 from playwright.sync_api import expect
 from pages.register_page import RegisterPage
 from pages.home_page import HomePage
+from pages.overall_rating_page import OverallRatingPage
 from components.header import Header
+
 
 
 @pytest.fixture(scope="session")
@@ -51,3 +53,7 @@ def home_page(page):
 @pytest.fixture
 def header(page):
     return Header(page)
+
+@pytest.fixture
+def overall_rating_page(page):
+    return OverallRatingPage(page)
