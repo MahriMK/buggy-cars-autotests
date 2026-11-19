@@ -7,3 +7,4 @@ auth.json
 .env
 .vscode/
 .DS_Store
+report.html
