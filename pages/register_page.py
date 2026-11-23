@@ -9,6 +9,7 @@ class RegisterPage:
         self.register_button = page.get_by_role('button', name='Register')
         self.cancel_button = page.get_by_role('button', name="Cancel")
         self.username_exists_error = page.get_by_text('UsernameExistsException: User already exist')
+        self.password_mismatch_error = page.get_by_text("Passwords do not match")
 
     def open(self):
         self.page.goto('/register')
