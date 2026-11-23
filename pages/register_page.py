@@ -26,3 +26,7 @@ class RegisterPage:
 
     def cancel(self):
         self.cancel_button.click()
+
+    def error_with_text(self, text):
+        return self.page.get_by_text(text)
+
