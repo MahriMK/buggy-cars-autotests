@@ -40,3 +40,16 @@ def test_register_with_mismatched_passwords_shows_error(register_page):
         )
     expect(register_page.password_mismatch_error).to_be_visible()
     expect(register_page.register_button).to_be_disabled()
+
+@pytest.mark.parametrize("password, error_text",[
+    ("pass12", "Password not long enough"),
+    ("12345678", "must have lowercase characters"),
+    ("password", "must have uppercase characters"),
+    ("Password", "must have numeric characters"),
+    ("Password1", "must have symbol characters") 
+], ids=["TC-016", "TC-017", "TC-018", "TC-019", "TC-020"])
+def test_register_with_invalid_password_shows_error(register_page, password, error_text):
+    register_page.open()
+    register_page.fill_form("test-invalid-pass", "Anna", "Smith", password)
+    register_page.submit()
+    expect(register_page.error_with_text(error_text)).to_be_visible()
