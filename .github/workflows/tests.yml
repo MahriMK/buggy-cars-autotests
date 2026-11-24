@@ -24,3 +24,12 @@ jobs:
 
       - name: Run tests
         run: pytest --html=report.html --self-contained-html
+      - name: Save test report and failure files
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-artifacts
+          path: |
+            report.html
+            test-results/
+          if-no-files-found: ignore
