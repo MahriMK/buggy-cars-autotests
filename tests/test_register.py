@@ -53,3 +53,16 @@ def test_register_with_invalid_password_shows_error(register_page, password, err
     register_page.fill_form("test-invalid-pass", "Anna", "Smith", password)
     register_page.submit()
     expect(register_page.error_with_text(error_text)).to_be_visible()
+
+@pytest.mark.parametrize("username, first_name, last_name, password, confirm_password", [
+    ("", "Anna", "Smith", "Qwerty123!", "Qwerty123!"),
+("test-empty-field", "", "Smith", "Qwerty123!", "Qwerty123!"),
+("test-empty-field", "Anna", "", "Qwerty123!", "Qwerty123!"),
+("test-empty-field", "Anna", "Smith", "Qwerty123!", ""),
+], ids=["TC-006-login", "TC-010-first-name", "TC-013-last-name", "TC-021-confirm-password"])
+def test_register_button_disabled_when_required_field_is_empty(
+    register_page, username, first_name, last_name, password, confirm_password
+):
+    register_page.open()
+    register_page.fill_form(username, first_name, last_name, password, confirm_password)
+    expect(register_page.register_button).to_be_disabled()
