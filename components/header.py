@@ -8,6 +8,7 @@ class Header:
         self.register_link = self.root.get_by_role('link', name='Register')
         self.profile_link = self.root.get_by_role('link', name='Profile')
         self.logout_link = self.root.get_by_role('link', name='Logout')
+        self.invalid_credentials_error = self.root.get_by_text("Invalid username/password")
 
     def login(self, username, password):
         self.login_input.fill(username)
