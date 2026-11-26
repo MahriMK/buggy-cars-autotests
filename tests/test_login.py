@@ -38,4 +38,19 @@ def test_login_with_extra_space_shows_error(home_page, test_data, username_templ
     )
     expect(home_page.header.invalid_credentials_error).to_be_visible()
 
- 
+BROWSER_REQUIRED_MESSAGE = "Please fill out this field."
+
+def test_login_with_empty_username_is_blocked(home_page, test_data):
+    home_page.open()
+    home_page.header.login('', test_data['password'])
+    expect(home_page.header.login_input).to_have_js_property('validationMessage', BROWSER_REQUIRED_MESSAGE)
+
+def test_login_with_empty_password_is_blocked(home_page, test_data):
+    home_page.open()
+    home_page.header.login(test_data["username"], "")
+    expect(home_page.header.password_input).to_have_js_property('validationMessage', BROWSER_REQUIRED_MESSAGE)
+
+def test_login_with_both_fields_empty_is_blocked(home_page, test_data):
+    home_page.open()
+    home_page.header.login("", "")
+    expect(home_page.header.login_input).to_have_js_property('validationMessage', BROWSER_REQUIRED_MESSAGE)
