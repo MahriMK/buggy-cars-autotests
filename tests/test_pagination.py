@@ -1,4 +1,5 @@
 import pytest
+import re
 from playwright.sync_api import expect
 
 def test_next_button_opens_page_2(overall_rating_page):
@@ -15,4 +16,17 @@ def test_next_on_last_page_stays_on_last_page(overall_rating_page):
         expect(pagination.page_info).to_contain_text(f"page {page_number} of 5")
     pagination.next()
     expect(pagination.page_info).to_contain_text('page 5 of 5')
+
+def test_previous_button_returns_to_page_1(overall_rating_page):
+    pagination = overall_rating_page.pagination
+    overall_rating_page.open()
+    pagination.next()
+    expect(pagination.page_info).to_contain_text("page 2 of 5")
+    pagination.previous()
+    expect(pagination.page_info).to_contain_text("page 1 of 5")
+
+def test_previous_button_is_disabled_on_first_page(overall_rating_page):
+    overall_rating_page.open()
+    expect(overall_rating_page.pagination.previous_button).to_have_class(re.compile(r'\bdisabled\b'))
+
 
