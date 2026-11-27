@@ -29,4 +29,9 @@ def test_previous_button_is_disabled_on_first_page(overall_rating_page):
     overall_rating_page.open()
     expect(overall_rating_page.pagination.previous_button).to_have_class(re.compile(r'\bdisabled\b'))
 
-
+@pytest.mark.parametrize("page_number", [2, 3, 4])
+def test_manual_page_input_opens_selected_page(overall_rating_page, page_number):
+    pagination = overall_rating_page.pagination
+    overall_rating_page.open()
+    pagination.go_to_page(page_number)
+    expect(pagination.page_info).to_contain_text(f'page {page_number} of 5')
