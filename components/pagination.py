@@ -12,3 +12,7 @@ class Pagination:
 
     def previous(self):
         self.previous_button.click()
+
+    def go_to_page(self, number):
+        self.page_input.fill(str(number))
+        self.page_input.press("Enter")
