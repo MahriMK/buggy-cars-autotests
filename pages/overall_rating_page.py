@@ -7,3 +7,4 @@ class OverallRatingPage:
 
     def open(self):
         self.page.goto('/overall')
+        self.pagination.root.wait_for()
